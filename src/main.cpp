@@ -46,16 +46,20 @@ float FazLeituraUmidade(void)
 {
     int ValorADC;
     float UmidadePercentual;
+    float max = 1024;
+    float min = 630;
+    float interval = max-min;
+
  
      ValorADC = analogRead(0);   //978 -> 3,3V
      Serial.print("[Leitura ADC] ");
      Serial.println(ValorADC);
       
-     UmidadePercentual = 100 * ((978-(float)ValorADC) / 978);
+     UmidadePercentual = 100 * (1.0 - (interval - (max - (float)ValorADC)) / interval) ;
      Serial.print("[Umidade Percentual] ");
      Serial.print(UmidadePercentual);
      Serial.println("%");
- 
+  
      return UmidadePercentual;
 }
 void setup()
